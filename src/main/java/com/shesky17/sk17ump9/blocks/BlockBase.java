@@ -1,4 +1,4 @@
-package com.shesky17.sk17ump9.items;
+package com.shesky17.sk17ump9.blocks;
 
 import com.shesky17.sk17ump9.Main;
 import com.shesky17.sk17ump9.init.ModItems;
