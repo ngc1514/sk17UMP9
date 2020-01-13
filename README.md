@@ -8,6 +8,7 @@ Mod Version: 0.0.1 <br />
 Added UMP9 to the game <br/>
 
 # Future Plan
-1. Make gun fireable <br/>
-2. Make a new 3D model <br/>
-3. Add waifu materials <br/>
+1. ~~Make item icon and register it to the game.~~ <br/>
+2. Implement firing mechanism <br/>
+3. Make a new 3D model <br/>
+4. Add waifu materials <br/>
