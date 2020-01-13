@@ -12,3 +12,5 @@ Added UMP9 to the game <br/>
 2. Implement firing mechanism <br/>
 3. Make a new 3D model <br/>
 4. Add waifu materials <br/>
+5. Implement gameplay elements from GFL. Will probably add voice too. <br/>
+TBD
