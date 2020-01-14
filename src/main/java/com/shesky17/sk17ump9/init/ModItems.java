@@ -2,16 +2,14 @@ package com.shesky17.sk17ump9.init;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.shesky17.sk17ump9.items.ItemBase;
+import com.shesky17.sk17ump9.materials.MaterialBase;
 import net.minecraft.item.Item;
 
+
+//add all mod items to the items_list array
 public class ModItems
 {
     public static final List<Item> ITEMS_LIST = new ArrayList<Item>();
 
-    //the name argument string has to be the same as the second string in en_us.lang file
-    //item.ABC.name, ABC has to be the same as ItemBase name
-    public static final Item UMP9 = new ItemBase("ump9");
-    public static final Item UMP45 = new ItemBase("ump45_test");
-
+    public static final MaterialBase OB_INGOT = new MaterialBase("ob_ingot");
 }
