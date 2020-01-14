@@ -10,7 +10,5 @@ public class ModKnife
 {
     public static final List<ItemSword> KNIFE_LIST = new ArrayList<ItemSword>();
 
-    public static final ItemSword BU_KNIFE = new KnifeBase("bu_kni");
     public static final ItemSword EX_SW = new KnifeBase("ex_sw");
-
 }
