@@ -1,7 +1,7 @@
 # sk17UMP9
 Mod in development <br />
 Forge Version: 1.12.2 <br />
-Mod Version: 0.0.1 <br />
+Mod Version: 0.0.2 <br />
 <br />
 
 # Mod Description
