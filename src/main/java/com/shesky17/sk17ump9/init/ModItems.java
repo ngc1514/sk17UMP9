@@ -2,7 +2,8 @@ package com.shesky17.sk17ump9.init;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.shesky17.sk17ump9.materials.MaterialBase;
+
+import com.shesky17.sk17ump9.items.ItemBase;
 import net.minecraft.item.Item;
 
 
@@ -11,5 +12,5 @@ public class ModItems
 {
     public static final List<Item> ITEMS_LIST = new ArrayList<Item>();
 
-    public static final MaterialBase OB_INGOT = new MaterialBase("ob_ingot");
+    public static final ItemBase OB_INGOT = new ItemBase("ob_ingot");
 }

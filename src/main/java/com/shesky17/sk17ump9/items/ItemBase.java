@@ -1,4 +1,4 @@
-package com.shesky17.sk17ump9.materials;
+package com.shesky17.sk17ump9.items;
 
 import com.shesky17.sk17ump9.Main;
 import com.shesky17.sk17ump9.init.ModItems;
@@ -8,10 +8,10 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.util.EnumHelper;
 
 
-public class MaterialBase extends Item implements IHasModel
+public class ItemBase extends Item implements IHasModel
 {
     //register a misc item material
-    public MaterialBase(String name) {
+    public ItemBase(String name) {
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(CreativeTabs.MATERIALS); //misc

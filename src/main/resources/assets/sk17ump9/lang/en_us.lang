@@ -2,5 +2,8 @@ item.ob_ingot.name=Obsidian Ingot
 item.ex_sw.name=Test Excalibur
 item.ump45_test.name=Test UMP45
 item.ump9.name=UMP9
+item.9mm.name=9MM Ammo
+
+entity.9mm.name=9MM Ammo
 
 tile.ob_ingot_block.name=Obsidian Ingot Block

@@ -1,5 +1,6 @@
 package com.shesky17.sk17ump9;
 
+import com.shesky17.sk17ump9.util.handler.RegistryHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -9,6 +10,8 @@ import com.shesky17.sk17ump9.proxy.CommonProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = Ref.MOD_ID, name = Ref.NAME, version = Ref.VERSION)
 public class Main {
@@ -22,7 +25,7 @@ public class Main {
     @Mod.EventHandler
     public static void PreInit(FMLPreInitializationEvent event)
     {
-
+        RegistryHandler.preInitRegistries(event);
     }
 
     @Mod.EventHandler

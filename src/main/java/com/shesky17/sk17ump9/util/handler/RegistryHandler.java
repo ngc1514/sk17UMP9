@@ -1,19 +1,24 @@
 package com.shesky17.sk17ump9.util.handler;
 
-import com.shesky17.sk17ump9.init.ModBlocks;
-import com.shesky17.sk17ump9.init.ModGuns;
-import com.shesky17.sk17ump9.init.ModKnife;
-import com.shesky17.sk17ump9.init.ModItems;
+import com.shesky17.sk17ump9.init.*;
 import com.shesky17.sk17ump9.util.IHasModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemSword;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import com.shesky17.sk17ump9.Main;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber
 public class RegistryHandler
@@ -46,10 +51,21 @@ public class RegistryHandler
         event.getRegistry().registerAll(ModGuns.GUN_LIST.toArray(new ItemBow[0]));
     }
 
+    //NOTE: register ammo
+    @SubscribeEvent
+    public static void onAmmoRegister(RegistryEvent.Register<Item> event)
+    {
+        event.getRegistry().registerAll(ModBullet.AMMO_LIST.toArray(new ItemArrow[0]));
+    }
+
     //NOTE: REMEMBER TO REGISTER!!!
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public static void onModelRegister(ModelRegistryEvent event)
     {
+        RenderHandler.registerEntityRenders();
+        EntityInit.registerEntities();
+
         for(Item item: ModItems.ITEMS_LIST) {
             if(item instanceof IHasModel) {
                 ((IHasModel)item).registerModels();
@@ -73,5 +89,16 @@ public class RegistryHandler
                 ((IHasModel)gun).registerModels();
             }
         }
+
+        for(ItemArrow ammo: ModBullet.AMMO_LIST) {
+            if(ammo instanceof IHasModel) {
+                ((IHasModel)ammo).registerModels();
+            }
+        }
+    }
+
+    public static void preInitRegistries(FMLPreInitializationEvent event)
+    {
+        EntityInit.registerEntities();
     }
 }
