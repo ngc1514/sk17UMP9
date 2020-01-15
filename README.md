@@ -1,4 +1,4 @@
-# sk17UMP9
+# sk17UMP9 (Hopefully this will evolve into a 404 Mod)
 Mod in development <br />
 Forge Version: 1.12.2 <br />
 Mod Version: 0.0.2 <br />
@@ -14,3 +14,5 @@ Added UMP9 to the game <br/>
 4. Add waifu materials <br/>
 5. Implement gameplay elements from GFL. Will probably add voice too. <br/>
 TBD
+
+# I love my waifu
