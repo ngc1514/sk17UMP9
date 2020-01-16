@@ -6,6 +6,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
+import scala.reflect.internal.SymbolsStats;
 
 import java.util.Random;
 
@@ -31,8 +32,7 @@ public class Entity9mm extends EntityArrow
     //what happens when arrow hit
     protected void arrowHit(EntityLivingBase living) {
         super.arrowHit(living);
-        living.setFire(10);
-        //living.setDead();
+        //living.setFire();
     }
 
     @Override
@@ -41,9 +41,11 @@ public class Entity9mm extends EntityArrow
         super.onUpdate();
         if(this.world.isRemote){
             if(this.inGround){
-                if(this.timeInGround % 5 == 0){
-                    this.spawnMyParticles(2);
-                }
+                //FIXME: trying to make ammo un-pickup-able
+                this.pickupStatus = PickupStatus.DISALLOWED;
+//                if(this.timeInGround % 5 == 0){
+//                    this.spawnMyParticles(2);
+//                }
             }
             else{
                 this.spawnMyParticles(1);
@@ -59,7 +61,8 @@ public class Entity9mm extends EntityArrow
         double d2 = (double)(i >> 0 & 255) / 255.0D;
         for(int j = 0; j<particleCount; ++j){
             //NOTE: this is how you create explosion when hit
-            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+            // trying other types of particle types may cause out of bound
+            this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE,
                     this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width,
                     this.posY + this.rand.nextDouble() * (double)this.height,
                     this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width,

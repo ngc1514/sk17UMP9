@@ -3,8 +3,6 @@ package com.shesky17.sk17ump9.ammos;
 import com.shesky17.sk17ump9.Main;
 import com.shesky17.sk17ump9.entity.nineMil.Entity9mm;
 import com.shesky17.sk17ump9.init.ModBullet;
-import com.shesky17.sk17ump9.init.ModGuns;
-import com.shesky17.sk17ump9.init.ModItems;
 import com.shesky17.sk17ump9.util.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;

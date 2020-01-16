@@ -38,13 +38,12 @@ public class GunBase extends ItemBow implements IHasModel
         setUnlocalizedName(name);
         setRegistryName(name);
         this.maxStackSize = 1;
-        this.setMaxDamage(800);
+        this.setMaxDamage(500);
         this.setCreativeTab(CreativeTabs.COMBAT);
         ModGuns.GUN_LIST.add(this);
     }
 
-    @Override
-    protected boolean isArrow(ItemStack stack){
+    protected boolean is9MMGun(ItemStack stack){
         if(stack.getItem() == ModBullet.NINEMIL){
             return true;
         }
@@ -133,16 +132,16 @@ public class GunBase extends ItemBow implements IHasModel
     //because findAmmo is private, copying makes life easier....
     private ItemStack findAmmo2(EntityPlayer player)
     {
-        if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
+        if (this.is9MMGun(player.getHeldItem(EnumHand.OFF_HAND))) {
             return player.getHeldItem(EnumHand.OFF_HAND);
         }
-        else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND))) {
+        else if (this.is9MMGun(player.getHeldItem(EnumHand.MAIN_HAND))) {
             return player.getHeldItem(EnumHand.MAIN_HAND);
         }
         else {
             for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
                 ItemStack itemstack = player.inventory.getStackInSlot(i);
-                if (this.isArrow(itemstack)) {
+                if (this.is9MMGun(itemstack)) {
                     return itemstack;
                 }
             }
