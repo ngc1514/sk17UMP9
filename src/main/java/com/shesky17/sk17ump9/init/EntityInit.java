@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 
 public class EntityInit {
     public static void registerEntities(){
+        //Will not add ump9 mag now, need to figure out how 1 mag = 30 rounds
         registerArrow("9mm", Entity9mm.class, Ref.ENTITY_9MM);
     }
 

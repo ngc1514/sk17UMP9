@@ -1,0 +1,6 @@
+{
+	"entity.bullet.ump_shooting": {
+		"category" : "player",
+		"sounds": [{ "name": "sk17ump9:entity/bullet/ump_shooting", "stream": true}]
+	}
+}

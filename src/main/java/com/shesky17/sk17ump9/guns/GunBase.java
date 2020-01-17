@@ -1,14 +1,11 @@
 package com.shesky17.sk17ump9.guns;
 
 import com.shesky17.sk17ump9.Main;
-import com.shesky17.sk17ump9.entity.nineMil.Entity9mm;
 import com.shesky17.sk17ump9.init.ModBullet;
 import com.shesky17.sk17ump9.init.ModGuns;
 import com.shesky17.sk17ump9.util.IHasModel;
-import com.shesky17.sk17ump9.util.Ref;
-import net.minecraft.client.settings.KeyBinding;
+import com.shesky17.sk17ump9.util.handler.SoundHandler;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +22,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 
-import static net.minecraft.entity.projectile.EntityArrow.PickupStatus.ALLOWED;
 
 
 public class GunBase extends ItemBow implements IHasModel
@@ -62,8 +56,9 @@ public class GunBase extends ItemBow implements IHasModel
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
+
     @Override
-    //FIXME: i dont want it to stop when holding, need to fix it
+    //FIXME: need to fix automatic firing and pickup status
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
     {
         if (entityLiving instanceof EntityPlayer)
@@ -83,6 +78,7 @@ public class GunBase extends ItemBow implements IHasModel
                 }
 
                 float f = getArrowVelocity2();
+                //FIXME: maybe this is where i disable pickup
                 if ((double)f >= 0.1D) {
                     boolean flag1 = entityplayer.capabilities.isCreativeMode || (itemstack.getItem() instanceof ItemArrow && ((ItemArrow) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer));
 
@@ -109,13 +105,22 @@ public class GunBase extends ItemBow implements IHasModel
                         }
 
                         stack.damageItem(1, entityplayer);
+                        //FIXME: maybe this is where i disable pickup
                         if (flag1 || entityplayer.capabilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
                             entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
                         }
                         worldIn.spawnEntity(entityarrow);
                     }
 
-                    worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    worldIn.playSound((EntityPlayer)null,
+                            entityplayer.posX,
+                            entityplayer.posY,
+                            entityplayer.posZ,
+                            SoundHandler.ump_shooting,
+                            SoundCategory.PLAYERS,
+                            1.0F,
+                            1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+
                     if (!flag1 && !entityplayer.capabilities.isCreativeMode) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
@@ -129,7 +134,7 @@ public class GunBase extends ItemBow implements IHasModel
         }
     }
 
-    //because findAmmo is private, copying makes life easier....
+    //because findAmmo is now private, copying makes life easier....
     private ItemStack findAmmo2(EntityPlayer player)
     {
         if (this.is9MMGun(player.getHeldItem(EnumHand.OFF_HAND))) {
@@ -149,11 +154,11 @@ public class GunBase extends ItemBow implements IHasModel
         }
     }
 
-    //same reason, i copy this cuz i can't override it
-    //i mean, standard 9mm has a muzzle speed of 380m/s, one block = 1m, so....
+    //Same reason, i copy this cuz i can't override it
+    //Standard 9mm has a muzzle speed of 380m/s, one block = 1m, so i guess....
     public static float getArrowVelocity2() {return 380;}
 
-    //a custom method for firing using left key
+    //TODO: need to find a way to fire with left key, might not gonna work
     public ActionResult<ItemStack> onItemLeftClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);

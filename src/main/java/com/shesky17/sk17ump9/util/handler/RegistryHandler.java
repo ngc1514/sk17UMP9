@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.WorldType;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -95,10 +96,14 @@ public class RegistryHandler
                 ((IHasModel)ammo).registerModels();
             }
         }
+
     }
 
+//    @SubscribeEvent
     public static void preInitRegistries(FMLPreInitializationEvent event)
     {
         EntityInit.registerEntities();
+        SoundHandler.registerSounds();
     }
+
 }

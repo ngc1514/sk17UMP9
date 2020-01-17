@@ -6,7 +6,6 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
-import scala.reflect.internal.SymbolsStats;
 
 import java.util.Random;
 
@@ -32,7 +31,7 @@ public class Entity9mm extends EntityArrow
     //what happens when arrow hit
     protected void arrowHit(EntityLivingBase living) {
         super.arrowHit(living);
-        //living.setFire();
+        living.setFire(2);
     }
 
     @Override
@@ -41,11 +40,11 @@ public class Entity9mm extends EntityArrow
         super.onUpdate();
         if(this.world.isRemote){
             if(this.inGround){
-                //FIXME: trying to make ammo un-pickup-able
+                //BUG: trying to make ammo un-pickup-able
                 this.pickupStatus = PickupStatus.DISALLOWED;
-//                if(this.timeInGround % 5 == 0){
-//                    this.spawnMyParticles(2);
-//                }
+                if(this.timeInGround % 5 == 0){
+                    this.spawnMyParticles(2);
+                }
             }
             else{
                 this.spawnMyParticles(1);
