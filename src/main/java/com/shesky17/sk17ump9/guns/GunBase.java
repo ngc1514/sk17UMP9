@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -50,10 +51,17 @@ public class GunBase extends ItemBow implements IHasModel
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         playerIn.setActiveHand(EnumHand.MAIN_HAND);
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        //return super.onItemRightClick(worldIn, playerIn, handIn);
+        return onItemRightClick2(worldIn, playerIn, handIn);
     }
 
-    public ActionResult<ItemStack> onItemRightClick2(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        //FIXME: this kinda disable the draw animation, need a better way
+        return EnumAction.NONE;
+    }
+
+        public ActionResult<ItemStack> onItemRightClick2(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         boolean flag = !this.findAmmo2(playerIn).isEmpty();//true when has ammo
@@ -95,7 +103,7 @@ public class GunBase extends ItemBow implements IHasModel
                 float f = getArrowVelocity2();
                 //BUG: needs to make only gun can shoot bullet, not bow
                 if ((double)f >= 0D ){
-                    //true when creative mode or infinite ammo
+                    /** true when creative mode or infinite ammo */
                     boolean flag1 = entityplayer.capabilities.isCreativeMode || (itemstack.getItem() instanceof BulletBase && ((BulletBase) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer));
 
                     if (!worldIn.isRemote) {
@@ -122,12 +130,12 @@ public class GunBase extends ItemBow implements IHasModel
                         }
 
                         stack.damageItem(1, entityplayer);
-                        //Bullet will never be able to pickup again
                         //if (flag1 || entityplayer.capabilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
+                        /** Bullet will never be able to pickup again */
                         entityBullet.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
                         //}
 
-                        //NEVER disable this, or bullet wont even spawn after firing
+                        /** NEVER disable this, or bullet wont even spawn after firing */
                         worldIn.spawnEntity(entityBullet);
                     }
 
@@ -140,7 +148,7 @@ public class GunBase extends ItemBow implements IHasModel
                             1.0F,
                             1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-                    //if not creative, reduce stack by 1 after each shot
+                    /** if not creative, reduce stack by 1 after each shot */
                     if (!flag1 && !entityplayer.capabilities.isCreativeMode) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
@@ -154,7 +162,7 @@ public class GunBase extends ItemBow implements IHasModel
         }
     }
 
-    //because findAmmo is now private, copying makes life easier....
+    /** Since findAmmo() is now private, copying makes life easier.... */
     private ItemStack findAmmo2(EntityPlayer player)
     {
         if (this.is9MMGun(player.getHeldItem(EnumHand.OFF_HAND))) {
@@ -174,8 +182,8 @@ public class GunBase extends ItemBow implements IHasModel
         }
     }
 
-    //Same reason, i copy this cuz i can't override it
-    //Standard 9mm has a muzzle speed of 380m/s, one block = 1m, so i guess....
+    /** Same reason, i copied this cuz i can't override it
+     *  Standard 9mm has a muzzle speed of 380m/s, one block = 1m, so i guess.... */
     public static float getArrowVelocity2() {return 380;}
 
 

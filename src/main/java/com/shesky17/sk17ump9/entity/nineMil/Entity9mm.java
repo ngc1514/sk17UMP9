@@ -1,6 +1,7 @@
 package com.shesky17.sk17ump9.entity.nineMil;
 
 import com.shesky17.sk17ump9.init.ModBullet;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
@@ -38,12 +39,14 @@ public class Entity9mm extends EntityArrow
     //particle and stuffs
     public void onUpdate() {
         super.onUpdate();
-        //BUG: bow can pickup ammo
         this.pickupStatus = PickupStatus.DISALLOWED;
         if(this.world.isRemote){
             if(this.inGround){
+                /** This fucking worked */
+                this.onKillCommand();
                 if(this.timeInGround % 5 == 0){
                     this.spawnMyParticles(2);
+
                 }
             }
             else{
@@ -61,7 +64,7 @@ public class Entity9mm extends EntityArrow
         for(int j = 0; j<particleCount; ++j){
             /** this is how you create explosion when hit
              * trying other types of particle types may cause out of bound */
-            this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE,
+            this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
                     this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width,
                     this.posY + this.rand.nextDouble() * (double)this.height,
                     this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width,
