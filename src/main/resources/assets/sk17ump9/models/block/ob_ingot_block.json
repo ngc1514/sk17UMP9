@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "sk17ump9:block_textures/ob_ingot_block"
+    "all": "sk17ump9:blocks/ob_ingot_block"
   }
 }

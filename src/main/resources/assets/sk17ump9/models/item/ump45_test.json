@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sk17ump9:item_textures/ump45_test"
+    "layer0": "sk17ump9:items/ump45_test"
   },
   "display": {
     "thirdperson_righthand": {

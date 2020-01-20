@@ -2,6 +2,6 @@
   "parent": "item/generated",
   "textures":
   {
-    "layer0": "sk17ump9:item_textures/9mm"
+    "layer0": "sk17ump9:items/9mm"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "sk17ump9:item_textures/ex_sw"
+    "layer0": "sk17ump9:items/ex_sw"
   }
 }
