@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.shesky17.sk17ump9.ammos.BulletBase;
-import net.minecraft.item.ItemArrow;
 
 public class ModBullet
 {

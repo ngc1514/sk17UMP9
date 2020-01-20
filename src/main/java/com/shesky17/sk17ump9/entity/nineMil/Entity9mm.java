@@ -38,10 +38,10 @@ public class Entity9mm extends EntityArrow
     //particle and stuffs
     public void onUpdate() {
         super.onUpdate();
+        //BUG: bow can pickup ammo
+        this.pickupStatus = PickupStatus.DISALLOWED;
         if(this.world.isRemote){
             if(this.inGround){
-                //BUG: trying to make ammo un-pickup-able
-                this.pickupStatus = PickupStatus.DISALLOWED;
                 if(this.timeInGround % 5 == 0){
                     this.spawnMyParticles(2);
                 }
@@ -59,8 +59,8 @@ public class Entity9mm extends EntityArrow
         double d1 = (double)(i >> 8 & 255) / 255.0D;
         double d2 = (double)(i >> 0 & 255) / 255.0D;
         for(int j = 0; j<particleCount; ++j){
-            //NOTE: this is how you create explosion when hit
-            // trying other types of particle types may cause out of bound
+            /** this is how you create explosion when hit
+             * trying other types of particle types may cause out of bound */
             this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE,
                     this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width,
                     this.posY + this.rand.nextDouble() * (double)this.height,

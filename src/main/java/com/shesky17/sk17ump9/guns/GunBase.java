@@ -12,8 +12,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -22,8 +20,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 
 public class GunBase extends ItemBow implements IHasModel
@@ -46,7 +42,6 @@ public class GunBase extends ItemBow implements IHasModel
     }
 
     @Override
-    //FIXME: need to make it continue shootings after timer ends
     public int getItemEnchantability() { return 2; }
 
     @Override
@@ -77,14 +72,13 @@ public class GunBase extends ItemBow implements IHasModel
 
 
     @Override
-    //FIXME: need to fix automatic firing and pickup status
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft)
     {
         if (entityLiving instanceof EntityPlayer)
         {
             EntityPlayer entityplayer = (EntityPlayer)entityLiving;
 
-            //NOTE: flag is true when is in creative mode or has infinity enchantment
+            /** flag is true when is in creative mode or has infinity enchantment 8 */
             boolean flag = entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
             ItemStack itemstack = this.findAmmo2(entityplayer);
 
@@ -102,11 +96,10 @@ public class GunBase extends ItemBow implements IHasModel
                 //BUG: needs to make only gun can shoot bullet, not bow
                 if ((double)f >= 0D ){
                     //true when creative mode or infinite ammo
-//                    boolean flag1 = entityplayer.capabilities.isCreativeMode || (itemstack.getItem() instanceof ItemArrow && ((ItemArrow) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer));
                     boolean flag1 = entityplayer.capabilities.isCreativeMode || (itemstack.getItem() instanceof BulletBase && ((BulletBase) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer));
 
                     if (!worldIn.isRemote) {
-                        //BUG: in the Bow class, 9mm instanceof Arrow is always true, so bow can fire bullet
+                        //BUG: in the ItemBow class, 9mm is an instance of arrow, so bow can fire bullet
                         BulletBase itembullet = (BulletBase)(itemstack.getItem() instanceof BulletBase ? itemstack.getItem() : ModBullet.NINEMIL);
                         EntityArrow entityBullet = itembullet.createArrow(worldIn, itemstack, entityplayer);
                         entityBullet.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
