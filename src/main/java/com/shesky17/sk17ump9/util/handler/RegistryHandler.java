@@ -1,5 +1,6 @@
 package com.shesky17.sk17ump9.util.handler;
 
+import com.shesky17.sk17ump9.ammos.BulletBase;
 import com.shesky17.sk17ump9.init.*;
 import com.shesky17.sk17ump9.util.IHasModel;
 
@@ -8,16 +9,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemSword;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.WorldType;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import com.shesky17.sk17ump9.Main;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -91,7 +87,8 @@ public class RegistryHandler
             }
         }
 
-        for(ItemArrow ammo: ModBullet.AMMO_LIST) {
+        //ItemArrow
+        for(BulletBase ammo: ModBullet.AMMO_LIST) {
             if(ammo instanceof IHasModel) {
                 ((IHasModel)ammo).registerModels();
             }

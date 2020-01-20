@@ -20,6 +20,7 @@ public class BulletBase extends ItemArrow implements IHasModel
         ModBullet.AMMO_LIST.add(this);
     }
 
+
     @Override
     public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
         Entity9mm entity9MM = new Entity9mm(worldIn, shooter);
