@@ -1,6 +1,7 @@
 package com.shesky17.sk17ump9.util.handler;
 
 import com.shesky17.sk17ump9.ammos.BulletBase;
+import com.shesky17.sk17ump9.guns.GunBase;
 import com.shesky17.sk17ump9.init.*;
 import com.shesky17.sk17ump9.util.IHasModel;
 
@@ -81,7 +82,7 @@ public class RegistryHandler
             }
         }
 
-        for(ItemBow gun: ModGuns.GUN_LIST) {
+        for(GunBase gun: ModGuns.GUN_LIST) {
             if(gun instanceof IHasModel) {
                 ((IHasModel)gun).registerModels();
             }

@@ -22,7 +22,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
-
 public class GunBase extends ItemBow implements IHasModel
 {
     public GunBase(String name)
@@ -101,26 +100,22 @@ public class GunBase extends ItemBow implements IHasModel
                 }
 
                 float f = getArrowVelocity2();
-                //BUG: needs to make only gun can shoot bullet, not bow
                 if ((double)f >= 0D ){
                     /** true when creative mode or infinite ammo */
                     boolean flag1 = entityplayer.capabilities.isCreativeMode || (itemstack.getItem() instanceof BulletBase && ((BulletBase) itemstack.getItem()).isInfinite(itemstack, stack, entityplayer));
 
                     if (!worldIn.isRemote) {
                         //BUG: in the ItemBow class, 9mm is an instance of arrow, so bow can fire bullet
+                        // needs to make only gun can shoot bullet, not bow
                         BulletBase itembullet = (BulletBase)(itemstack.getItem() instanceof BulletBase ? itemstack.getItem() : ModBullet.NINEMIL);
                         EntityArrow entityBullet = itembullet.createArrow(worldIn, itemstack, entityplayer);
                         entityBullet.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
-                        if (f == 1.0F) {
-                            entityBullet.setIsCritical(true);
-                        }
-
+//                        if (f == 1.0F) {entityBullet.setIsCritical(true);}
                         int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
                         if (j > 0) {
                             entityBullet.setDamage(entityBullet.getDamage() + (double)j * 0.5D + 0.5D);
                         }
-
                         int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
                         if (k > 0) {
                             entityBullet.setKnockbackStrength(k);
@@ -130,10 +125,8 @@ public class GunBase extends ItemBow implements IHasModel
                         }
 
                         stack.damageItem(1, entityplayer);
-                        //if (flag1 || entityplayer.capabilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
-                        /** Bullet will never be able to pickup again */
+                        /** Bullet will never be able to pickup again after being shot */
                         entityBullet.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-                        //}
 
                         /** NEVER disable this, or bullet wont even spawn after firing */
                         worldIn.spawnEntity(entityBullet);
@@ -184,7 +177,7 @@ public class GunBase extends ItemBow implements IHasModel
 
     /** Same reason, i copied this cuz i can't override it
      *  Standard 9mm has a muzzle speed of 380m/s, one block = 1m, so i guess.... */
-    public static float getArrowVelocity2() {return 380;}
+    public static float getArrowVelocity2() {return 180;} //380 is too OP
 
 
     @Override
