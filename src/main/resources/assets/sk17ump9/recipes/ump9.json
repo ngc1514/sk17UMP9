@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+
+  "pattern":
+  [
+    " II",
+    "III",
+    "I I"
+  ],
+
+  "key":
+  {
+    "I":
+    {
+      "item": "sk17ump9:vibranium_ingot"
+    }
+  },
+
+  "result":
+  {
+    "item": "sk17ump9:ump9",
+    "count": 1
+  }
+}

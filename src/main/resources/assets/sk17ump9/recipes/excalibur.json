@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+
+  "pattern":
+  [
+    " I ",
+    " I ",
+    " S "
+  ],
+
+  "key":
+  {
+    "I":
+    {
+      "item": "sk17ump9:vibranium_ingot"
+    },
+    "S":
+    {
+      "item": "minecraft:stick"
+    }
+  },
+
+  "result":
+  {
+    "item": "sk17ump9:excalibur",
+    "count": 1
+  }
+}
