@@ -9,7 +9,7 @@ import net.minecraft.item.ItemSword;
 public class KnifeBase extends ItemSword implements IHasModel
 {
     public KnifeBase(String name){
-        super(ToolMaterial.valueOf("ob_ingot"));
+        super(ToolMaterial.valueOf("vibranium_ingot"));
         this.maxStackSize = 1;
         this.setMaxDamage(385);
 

@@ -12,5 +12,5 @@ public class ModItems
 {
     public static final List<Item> ITEMS_LIST = new ArrayList<Item>();
 
-    public static final ItemBase OB_INGOT = new ItemBase("ob_ingot");
+    public static final ItemBase VIBRANIUM_INGOT = new ItemBase("vibranium_ingot");
 }
