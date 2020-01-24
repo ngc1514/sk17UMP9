@@ -32,15 +32,7 @@ public class Entity9mm extends EntityArrow
     //private int knockback = ReflectionHelper.getPrivateValue(EntityArrow.class,this,"knockbackStrength");
 
     /** Useless constructors */
-    public Entity9mm(World worldIn){
-        super(worldIn);
-//        ReflectionHelper.setPrivateValue(EntityArrow.class, this, -1, "xTile"); //this.xTile = -1;
-//        ReflectionHelper.setPrivateValue(EntityArrow.class, this, -1, "yTile");//this.yTile = -1;
-//        ReflectionHelper.setPrivateValue(EntityArrow.class, this, -1, "zTile");//this.zTile = -1;
-        this.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-        this.setDamage(2.0D);
-        this.setSize(0.5F, 0.5F);
-    }
+    public Entity9mm(World worldIn){ super(worldIn); }
     public Entity9mm(World worldIn, double x, double y, double z){
         super(worldIn, x, y, z);
     }
@@ -95,113 +87,115 @@ public class Entity9mm extends EntityArrow
         }
     }
 
-//    @Override
-//    protected void onHit(RayTraceResult raytraceResultIn)
-//    {
-//        Entity entity = raytraceResultIn.entityHit;
-//
-//        if (entity != null) {
-//            float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-//            int i = MathHelper.ceil((double)f * this.getDamage());
-//
-//            if (this.getIsCritical()) {
-//                i += this.rand.nextInt(i / 2 + 2);
-//            }
-//
-//            DamageSource damagesource;
-//
-//            if (this.shootingEntity == null) {
-//                damagesource = DamageSource.causeArrowDamage(this, this);
-//            }
-//            else {
-//                damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
-//            }
-//
-//            if (this.isBurning() && !(entity instanceof EntityEnderman)) {
-//                entity.setFire(5);
-//            }
-//
-//            if (entity.attackEntityFrom(damagesource, (float)i)) {
-//                if (entity instanceof EntityLivingBase) {
-//                    EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
+    @Override
+    protected void onHit(RayTraceResult raytraceResultIn)
+    {
+        Entity entity = raytraceResultIn.entityHit;
+
+        if (entity != null) {
+            float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+            int i = MathHelper.ceil((double)f * this.getDamage());
+
+            if (this.getIsCritical()) {
+                i += this.rand.nextInt(i / 2 + 2);
+            }
+
+            DamageSource damagesource;
+
+            if (this.shootingEntity == null) {
+                damagesource = DamageSource.causeArrowDamage(this, this);
+            }
+            else {
+                damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
+            }
+
+            if (this.isBurning() && !(entity instanceof EntityEnderman)) {
+                entity.setFire(5);
+            }
+
+            if (entity.attackEntityFrom(damagesource, (float)i)) {
+                if (entity instanceof EntityLivingBase) {
+                    EntityLivingBase entitylivingbase = (EntityLivingBase)entity;
 //                    if (knockback > 0) { //knockbackStrength
 //                        float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-//
 //                        if (f1 > 0.0F) {
 //                            //(double)this.knockbackStrength
 //                            entitylivingbase.addVelocity(this.motionX * knockback * 0.6000000238418579D / (double)f1, 0.1D, this.motionZ * knockback * 0.6000000238418579D / (double)f1);
 //                        }
 //                    }
-//
-//                    if (this.shootingEntity instanceof EntityLivingBase) {
-//                        EnchantmentHelper.applyThornEnchantments(entitylivingbase, this.shootingEntity);
-//                        EnchantmentHelper.applyArthropodEnchantments((EntityLivingBase)this.shootingEntity, entitylivingbase);
-//                    }
-//
-//                    this.arrowHit(entitylivingbase);
-//
-//                    if (this.shootingEntity != null && entitylivingbase != this.shootingEntity && entitylivingbase instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP) {
-//                        ((EntityPlayerMP)this.shootingEntity).connection.sendPacket(new SPacketChangeGameState(6, 0.0F));
-//                    }
-//                }
-//
-//                this.playSound(SoundHandler.ump_shooting, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
-//
-//                if (!(entity instanceof EntityEnderman)) {
-//                    this.setDead();
-//                }
-//            }
-//            else
-//            {
-//                this.motionX *= -0.10000000149011612D;
-//                this.motionY *= -0.10000000149011612D;
-//                this.motionZ *= -0.10000000149011612D;
-//                this.rotationYaw += 180.0F;
-//                this.prevRotationYaw += 180.0F;
-//                ReflectionHelper.setPrivateValue(EntityArrow.class, this, 0, "ticksInAir"); //this.ticksInAir = 0;
-//
+
+                    if (this.shootingEntity instanceof EntityLivingBase) {
+                        EnchantmentHelper.applyThornEnchantments(entitylivingbase, this.shootingEntity);
+                        EnchantmentHelper.applyArthropodEnchantments((EntityLivingBase)this.shootingEntity, entitylivingbase);
+                    }
+
+                    this.arrowHit(entitylivingbase);
+
+                    if (this.shootingEntity != null && entitylivingbase != this.shootingEntity && entitylivingbase instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP) {
+                        ((EntityPlayerMP)this.shootingEntity).connection.sendPacket(new SPacketChangeGameState(6, 0.0F));
+                    }
+                }
+
+                this.playSound(SoundHandler.ump_shooting, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+
+                if (!(entity instanceof EntityEnderman)) {
+                    this.setDead();
+                }
+            }
+            else
+            {
+                this.motionX *= -0.10000000149011612D;
+                this.motionY *= -0.10000000149011612D;
+                this.motionZ *= -0.10000000149011612D;
+                this.rotationYaw += 180.0F;
+                this.prevRotationYaw += 180.0F;
+                ReflectionHelper.setPrivateValue(EntityArrow.class, this, 0, "ticksInAir");
+                //this.ticksInAir = 0;
+
 //                if (!this.world.isRemote && this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ < 0.0010000000474974513D) {
 //                    if (this.pickupStatus == EntityArrow.PickupStatus.ALLOWED) {
 //                        this.entityDropItem(this.getArrowStack(), 0.1F);
 //                    }
 //                    this.setDead();
 //                }
-//            }
-//        }
-//        else
-//        {
-//            BlockPos blockpos = raytraceResultIn.getBlockPos();
-//            ReflectionHelper.setPrivateValue(EntityArrow.class, this, blockpos.getX(), "xTile");
-//            ReflectionHelper.setPrivateValue(EntityArrow.class, this, blockpos.getY(), "yTile");
-//            ReflectionHelper.setPrivateValue(EntityArrow.class, this, blockpos.getZ(), "zTile");
-////            this.xTile = blockpos.getX();
-////            this.yTile = blockpos.getY();
-////            this.zTile = blockpos.getZ();
-//            IBlockState iblockstate = this.world.getBlockState(blockpos);
-//
-//            ReflectionHelper.setPrivateValue(EntityArrow.class, this, iblockstate.getBlock(), "inTile");
-//            //this.inTile = iblockstate.getBlock();
-//
-//            Block inT = ReflectionHelper.getPrivateValue(EntityArrow.class, this, "inTile");
-//            ReflectionHelper.setPrivateValue(EntityArrow.class, this, inT.getMetaFromState(iblockstate), "inData");
-//            //this.inData = this.inTile.getMetaFromState(iblockstate);
-//
-//            this.motionX = (double)((float)(raytraceResultIn.hitVec.x - this.posX));
-//            this.motionY = (double)((float)(raytraceResultIn.hitVec.y - this.posY));
-//            this.motionZ = (double)((float)(raytraceResultIn.hitVec.z - this.posZ));
-//            float f2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-//            this.posX -= this.motionX / (double)f2 * 0.05000000074505806D;
-//            this.posY -= this.motionY / (double)f2 * 0.05000000074505806D;
-//            this.posZ -= this.motionZ / (double)f2 * 0.05000000074505806D;
-//            this.playSound(SoundHandler.ump_shooting, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
-//            this.inGround = true;
-//            this.arrowShake = 7;
-//            this.setIsCritical(false);
-//
-//            if (iblockstate.getMaterial() != Material.AIR) {
-//                //this.inTile.onEntityCollidedWithBlock(this.world, blockpos, iblockstate, this);
-//                inT.onEntityCollidedWithBlock(this.world, blockpos, iblockstate, this);
-//            }
-//        }
-//    }
+            }
+        }
+        else
+        {
+            BlockPos blockpos = raytraceResultIn.getBlockPos();
+            ReflectionHelper.setPrivateValue(EntityArrow.class, this, blockpos.getX(), "xTile");
+            ReflectionHelper.setPrivateValue(EntityArrow.class, this, blockpos.getY(), "yTile");
+            ReflectionHelper.setPrivateValue(EntityArrow.class, this, blockpos.getZ(), "zTile");
+//            this.xTile = blockpos.getX();
+//            this.yTile = blockpos.getY();
+//            this.zTile = blockpos.getZ();
+            IBlockState iblockstate = this.world.getBlockState(blockpos);
+
+            //BUG: Will cause fileNotFound:IRON in non-dev env.
+            // But can't remove this or it will crash
+            ReflectionHelper.setPrivateValue(EntityArrow.class, this, iblockstate.getBlock(), "inTile");
+            //this.inTile = iblockstate.getBlock();
+
+            Block inT = ReflectionHelper.getPrivateValue(EntityArrow.class, this, "inTile");
+            ReflectionHelper.setPrivateValue(EntityArrow.class, this, inT.getMetaFromState(iblockstate), "inData");
+            //this.inData = this.inTile.getMetaFromState(iblockstate);
+
+            this.motionX = (double)((float)(raytraceResultIn.hitVec.x - this.posX));
+            this.motionY = (double)((float)(raytraceResultIn.hitVec.y - this.posY));
+            this.motionZ = (double)((float)(raytraceResultIn.hitVec.z - this.posZ));
+            float f2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+            this.posX -= this.motionX / (double)f2 * 0.05000000074505806D;
+            this.posY -= this.motionY / (double)f2 * 0.05000000074505806D;
+            this.posZ -= this.motionZ / (double)f2 * 0.05000000074505806D;
+            this.playSound(SoundHandler.ump_shooting, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+            this.inGround = true;
+            this.arrowShake = 7;
+            this.setIsCritical(false);
+
+            if (iblockstate.getMaterial() != Material.AIR) {
+                //this.inTile.onEntityCollidedWithBlock(this.world, blockpos, iblockstate, this);
+                inT.onEntityCollidedWithBlock(this.world, blockpos, iblockstate, this);
+            }
+        }
+    }
 }
